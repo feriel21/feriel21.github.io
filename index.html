@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feryal Talbi Portfolio</title>
+<meta name="description" content="Feryal Talbi, PhD researcher in AI at Sorbonne University. Knowledge graphs, LLMs and explainable seismic interpretation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+/* One visual world, light by choice: the page is a cross-section of the ground.
+   Five strata colours carry everything; the hero animates them, the path stacks them. */
+:root {
+  --bg: #f6f3f8;
+  --ink: #1d1633;
+  --ink-soft: #5a5470;
+  --rule: #ddd6e6;
+  --teal: #2a9d8f;
+  --saffron: #f3c969;
+  --plum: #a23b72;
+  --coral: #f18f6b;
+  --indigo: #3b3a8f;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { color: var(--indigo); text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; border-radius: 4px; }
+em { font-style: italic; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 48px); }
+
+/* Nav */
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding: 22px 0; }
+.logo { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 1.5rem; color: var(--ink); text-decoration: none; }
+.logo b { color: var(--plum); font-weight: 600; }
+.top nav { display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--font-mono); font-size: 0.8125rem; }
+.top nav a { color: var(--ink); text-decoration: none; padding: 2px 0; border-bottom: 2px solid transparent; }
+.top nav a:hover { border-bottom-color: var(--coral); }
+
+/* Hero */
+.hero { padding: clamp(28px, 6vw, 72px) 0 clamp(20px, 3vw, 36px); }
+.hello { font-family: var(--font-mono); font-size: 0.875rem; color: var(--ink-soft); }
+.hero h1 { font-size: clamp(3.4rem, 13vw, 9rem); line-height: 0.92; letter-spacing: -0.03em; font-weight: 400; margin-top: 8px; }
+.hero h1 em { font-weight: 600; color: var(--plum); }
+.pitch { font-family: var(--font-display); font-size: clamp(1.35rem, 3.2vw, 2.1rem); line-height: 1.22; margin-top: clamp(18px, 3vw, 30px); max-width: 24ch; }
+.pitch u { text-decoration: none; background: linear-gradient(transparent 62%, var(--saffron) 62%); }
+.who { margin-top: 18px; max-width: 52ch; color: var(--ink-soft); }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn { display: inline-block; padding: 11px 20px; border-radius: 999px; border: 1.5px solid var(--ink); font: 500 0.9375rem var(--font-body); color: var(--ink); background: transparent; text-decoration: none; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease; }
+.btn:hover { background: var(--ink); color: var(--bg); transform: translateY(-2px); }
+.btn.fill { background: var(--ink); color: var(--bg); }
+.btn.fill:hover { background: var(--plum); border-color: var(--plum); }
+
+/* Strata canvas, full bleed */
+.ground { position: relative; }
+#strata { display: block; width: 100%; height: clamp(240px, 34vw, 400px); }
+.ground-note { background: var(--indigo); color: #ffffff; }
+.ground-note p { padding: 14px 0 16px; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.5; max-width: 70ch; }
+
+/* Sections */
+section.block { padding: clamp(44px, 7vw, 88px) 0; }
+.kicker { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; }
+.kicker i { width: 28px; height: 8px; border-radius: 4px; flex: none; }
+.block h2 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-top: 10px; max-width: 18ch; }
+.block h2 em { font-weight: 600; }
+.intro { margin-top: 20px; max-width: 62ch; }
+.intro + .intro { margin-top: 14px; }
+
+/* About facts */
+.facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.facts li { padding: 8px 16px; border-radius: 999px; font-size: 0.9375rem; font-weight: 500; color: var(--ink); }
+.facts li:nth-child(1) { background: var(--saffron); }
+.facts li:nth-child(2) { background: var(--coral); }
+.facts li:nth-child(3) { background: #bfe3de; }
+.facts li:nth-child(4) { background: #e6c3d6; }
+
+/* Work */
+.work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
+.work li { background: #ffffff; border-radius: 18px; padding: 26px 24px 28px; border-top: 10px solid var(--teal); display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s ease; }
+.work li:nth-child(2) { border-top-color: var(--plum); transform: translateY(18px); }
+.work li:nth-child(3) { border-top-color: var(--coral); }
+.work li:hover { transform: translateY(-4px); }
+.work li:nth-child(2):hover { transform: translateY(12px); }
+.work .n { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); }
+.work h3 { font-size: 1.4rem; line-height: 1.15; }
+.work p { font-size: 0.9688rem; color: var(--ink-soft); line-height: 1.5; }
+.repo { margin-top: 46px; max-width: 62ch; }
+
+/* Path as stacked strata */
+.path { margin-top: 34px; display: grid; gap: 0; border-radius: 22px; overflow: hidden; }
+.stratum { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: 8px 28px; padding: clamp(22px, 3.5vw, 34px) clamp(20px, 3.5vw, 36px); }
+.stratum .when { font-family: var(--font-display); font-style: italic; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.1; }
+.stratum h3 { font-size: 1.3rem; line-height: 1.2; }
+.stratum .where { font-size: 0.9375rem; margin-top: 4px; opacity: 0.85; }
+.stratum ul { margin-top: 12px; display: grid; gap: 6px; max-width: 60ch; }
+.stratum li { position: relative; padding-left: 18px; font-size: 0.9688rem; line-height: 1.5; }
+.stratum li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
+.s1 { background: var(--indigo); color: #ffffff; }
+.s2 { background: var(--saffron); color: var(--ink); }
+.s3 { background: var(--plum); color: #ffffff; }
+.s4 { background: #bfe3de; color: var(--ink); }
+
+/* Toolkit */
+.kit { margin-top: 30px; display: grid; gap: 22px; }
+.kit h3 { font-family: var(--font-mono); font-weight: 500; font-size: 0.8125rem; color: var(--ink-soft); }
+.kit ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.kit li { padding: 6px 14px; border: 1.5px solid var(--ink); border-radius: 999px; font-size: 0.9375rem; background: #ffffff; }
+.langs { margin-top: 28px; font-family: var(--font-display); font-style: italic; font-size: 1.25rem; }
+
+/* Talks */
+.pubs { margin-top: 30px; border-top: 1.5px solid var(--ink); }
+.pubs li { display: grid; grid-template-columns: minmax(0, 130px) minmax(0, 1fr); gap: 4px 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.pubs .yr { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink-soft); padding-top: 5px; font-variant-numeric: tabular-nums; }
+.pubs .kind { display: inline-block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 9px; border-radius: 999px; background: var(--saffron); color: var(--ink); }
+.pubs .t { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; margin-top: 6px; max-width: 48ch; }
+.pubs .meta { font-size: 0.9375rem; color: var(--ink-soft); margin-top: 4px; max-width: 65ch; }
+
+/* Contact */
+.contact { background: var(--ink); color: var(--bg); border-radius: 28px; padding: clamp(32px, 6vw, 72px) clamp(22px, 5vw, 64px); margin-bottom: 28px; }
+.contact h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.6rem, 9vw, 6rem); line-height: 0.95; letter-spacing: -0.03em; }
+.contact h2 em { color: var(--saffron); font-weight: 600; }
+.contact p { margin-top: 18px; max-width: 50ch; color: #cfc9dd; }
+.mail-row { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin-top: 26px; }
+.mail { font-family: var(--font-mono); font-size: clamp(0.875rem, 2.6vw, 1.125rem); color: #ffffff; overflow-wrap: anywhere; }
+.contact .btn { border-color: var(--bg); color: var(--bg); }
+.contact .btn:hover { background: var(--saffron); border-color: var(--saffron); color: var(--ink); }
+#copied { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--saffron); min-height: 1.2em; }
+footer { padding: 8px 0 36px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); }
+
+@media (max-width: 820px) {
+  .work { grid-template-columns: minmax(0, 1fr); }
+  .work li:nth-child(2), .work li:nth-child(2):hover { transform: none; }
+  .repo { margin-top: 28px; }
+  .stratum, .pubs li { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .work li { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#top">Feryal<b>.</b></a>
+    <nav aria-label="Sections">
+      <a href="#about">about</a>
+      <a href="#work">work</a>
+      <a href="#path">path</a>
+      <a href="#toolkit">toolkit</a>
+      <a href="#talks">talks</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="top">
+    <p class="hello">Paris, France</p>
+    <h1>Hi, I'm <em>Feryal</em>.</h1>
+    <p class="pitch">I work on AI that interprets seismic data and <u>explains what it sees</u>.</p>
+    <p class="who">AI researcher and PhD candidate at Sorbonne University, working with IFP Energies nouvelles on LLMs, knowledge graphs and explainable AI.</p>
+    <div class="links">
+      <a class="btn fill" href="#contact">Say hello</a>
+      <a class="btn" href="https://www.linkedin.com/in/feryal-talbi-1747011b1" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/feriel21/ontogeorag-cageo" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<div class="ground">
+  <canvas id="strata" role="img" aria-label="Animated illustration of rock layers. One layer is chaotic and carries a small network of connected dots."></canvas>
+  <div class="ground-note"><div class="wrap"><p>My thesis in one picture: layers of rock, one chaotic interval, and a knowledge graph that explains it.</p></div></div>
+</div>
+
+<main class="wrap">
+
+  <section class="block" id="about">
+    <p class="kicker"><i style="background: var(--teal)"></i>about</p>
+    <h2>An engineer who works where <em>AI meets geology</em>.</h2>
+    <p class="intro">I'm a computer science engineer by training. Today I develop knowledge-infused machine learning: I combine knowledge graphs with LLMs and unsupervised learning to give accurate and explainable interpretations of seismic data, the images we have of what lies underground.</p>
+    <p class="intro">I am a Marie Skłodowska-Curie doctoral fellow in the SOUND.AI programme (Horizon Europe), based at Sorbonne University (LIP6, ISTeP) with IFP Energies nouvelles.</p>
+    <ul class="facts">
+      <li>Based in Paris</li>
+      <li>Arabic, French, English</li>
+      <li>Marie Skłodowska-Curie fellow</li>
+    </ul>
+  </section>
+
+  <section class="block" id="work">
+    <p class="kicker"><i style="background: var(--plum)"></i>work</p>
+    <h2>What I'm <em>building</em>.</h2>
+    <p class="intro">A clustering model can find patterns in seismic data. An interpreter also needs to know what a pattern means, and why. My research links what the model sees to what the geological literature says, so that every interpretation can be traced back to a concept and a source.</p>
+    <ul class="work">
+      <li>
+        <span class="n">01 · OntoGeoRAG</span>
+        <h3>Retrieval guided by a knowledge graph</h3>
+        <p>A retrieval and LLM pipeline for interpreting mass transport deposits, with citable, geology-grounded explanations.</p>
+      </li>
+      <li>
+        <span class="n">02 · Representations</span>
+        <h3>Seismic images meet the literature</h3>
+        <p>Joint text and image representations of seismic patches, clustered with HDBSCAN and KMeans, then mapped to geologic descriptors.</p>
+      </li>
+      <li>
+        <span class="n">03 · Explainability</span>
+        <h3>Predictions you can trace</h3>
+        <p>Interpretations linked to the knowledge graph, from a prediction back to geological concepts and literature sources.</p>
+      </li>
+    </ul>
+    <p class="repo">The pipeline is open source, with versioned releases on GitHub and Zenodo: <a href="https://github.com/feriel21/ontogeorag-cageo" target="_blank" rel="noopener">github.com/feriel21/ontogeorag-cageo</a></p>
+  </section>
+
+  <section class="block" id="path">
+    <p class="kicker"><i style="background: var(--indigo)"></i>path</p>
+    <h2>My path, read like <em>strata</em>: youngest on top.</h2>
+    <div class="path">
+      <div class="stratum s1">
+        <p class="when">2024 to now</p>
+        <div>
+          <h3>PhD researcher in computer science and geoscience AI</h3>
+          <p class="where">Sorbonne University (LIP6, ISTeP) with IFP Energies nouvelles, Paris</p>
+          <ul>
+            <li>Designed OntoGeoRAG, a knowledge-graph-constrained retrieval and LLM pipeline.</li>
+            <li>Developed joint text and image representations for seismic patches and literature.</li>
+            <li>Released the pipeline as open-source code with versioned releases.</li>
+            <li>Completed two research stays at IFPEN, in Rueil-Malmaison and Solaize.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stratum s2">
+        <p class="when">January 2026</p>
+        <div>
+          <h3>MenaML Winter School on machine learning</h3>
+          <p class="where">KAUST, Saudi Arabia · 30 hours</p>
+        </div>
+      </div>
+      <div class="stratum s3">
+        <p class="when">2023</p>
+        <div>
+          <h3>Research intern, master's thesis</h3>
+          <p class="where">CESI LINEACT research laboratory, Aix-en-Provence · 8 months</p>
+          <ul>
+            <li>Built a federated graph neural network system for privacy-preserving, collaborative object detection and tracking across autonomous robots.</li>
+            <li>Implemented graph-based data association for real-time tracking under limited compute and bandwidth.</li>
+            <li>Published the framework, CoRODDA, at CRiSIS 2023.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stratum s4">
+        <p class="when">2018 to 2023</p>
+        <div>
+          <h3>State Engineer's degree and Master's degree in computer science</h3>
+          <p class="where">Higher School of Computer Science (ESI-SBA), Sidi Bel Abbès, Algeria · Information systems and web</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="toolkit">
+    <p class="kicker"><i style="background: var(--coral)"></i>toolkit</p>
+    <h2>What I <em>work with</em>.</h2>
+    <div class="kit">
+      <div>
+        <h3>LLM and RAG</h3>
+        <ul><li>RAG pipelines</li><li>Hugging Face</li><li>Ollama</li><li>Qwen</li><li>Llama</li><li>Mistral</li></ul>
+      </div>
+      <div>
+        <h3>NLP and knowledge graphs</h3>
+        <ul><li>Knowledge graph construction</li><li>NetworkX</li><li>spaCy</li><li>SVO extraction</li><li>sentence-transformers</li></ul>
+      </div>
+      <div>
+        <h3>Machine learning</h3>
+        <ul><li>PyTorch</li><li>scikit-learn</li><li>HDBSCAN</li><li>KMeans</li><li>Autoencoders</li><li>Vision transformers</li><li>Segmentation</li><li>Classification</li></ul>
+      </div>
+      <div>
+        <h3>Computer vision</h3>
+        <ul><li>Real-time object detection</li><li>Multi-object tracking</li><li>Graph neural networks</li></ul>
+      </div>
+      <div>
+        <h3>Development tools</h3>
+        <ul><li>Python</li><li>Git</li><li>Linux/WSL</li><li>Bash</li><li>Docker</li><li>SLURM GPU cluster</li><li>Jupyter</li></ul>
+      </div>
+    </div>
+    <p class="langs">Arabic (native), French (fluent), English (professional).</p>
+  </section>
+
+  <section class="block" id="talks">
+    <p class="kicker"><i style="background: var(--saffron)"></i>talks</p>
+    <h2>Papers and <em>talks</em>.</h2>
+    <ul class="pubs">
+      <li>
+        <span class="yr">Nov 2026</span>
+        <div>
+          <span class="kind">Talk</span>
+          <p class="t">Compute! Paris 2026</p>
+          <p class="meta">Sorbonne University, Paris, 26 November 2026.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <span class="kind">Article</span>
+          <p class="t">OntoGeoRAG</p>
+          <p class="meta">In preparation for Computers &amp; Geosciences.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">May 2026</span>
+        <div>
+          <span class="kind">Poster</span>
+          <p class="t">OntoGeoRAG</p>
+          <p class="meta">EGU General Assembly 2026, Vienna.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">Dec 2023</span>
+        <div>
+          <span class="kind">Conference paper</span>
+          <p class="t">A Collaborative Real-Time Object Detection and Data Association Framework for Autonomous Robots Using Federated Graph Neural Network</p>
+          <p class="meta">F. B. Talbi, S. Ouchani, Y. Dupuis, M. Malki. 18th International Conference on Risks and Security of Internet and Systems (CRiSIS). HAL: <a href="https://hal.science/hal-04371570v1" target="_blank" rel="noopener">hal-04371570v1</a></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Let's <em>talk</em>.</h2>
+    <p>Research, collaborations, the OntoGeoRAG code, or simply a good question about AI and geoscience: I'm always happy to hear from you.</p>
+    <div class="mail-row">
+      <a class="mail" id="mail" href="mailto:feryal-batoul.talbi@sorbonne-universite.fr">feryal-batoul.talbi@sorbonne-universite.fr</a>
+      <button class="btn" id="copy" type="button">Copy email address</button>
+      <span id="copied" role="status" aria-live="polite"></span>
+    </div>
+    <div class="links">
+      <a class="btn" href="https://www.linkedin.com/in/feryal-talbi-1747011b1" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/feriel21/ontogeorag-cageo" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+  <footer>Feryal Talbi · Paris · 2026</footer>
+</main>
+
+<script>
+(function () {
+  var canvas = document.getElementById('strata');
+  var ctx = canvas.getContext('2d');
+  var css = getComputedStyle(document.documentElement);
+  function tok(n) { return css.getPropertyValue(n).trim(); }
+  var colors = [tok('--teal'), tok('--saffron'), tok('--plum'), tok('--coral'), tok('--indigo')];
+  var layers = [
+    { y: 0.16, a: 16, f: 1.1, s: 0.35, p: 0.3 },
+    { y: 0.34, a: 13, f: 1.6, s: 0.28, p: 1.9 },
+    { y: 0.47, a: 18, f: 1.3, s: 0.22, p: 4.1 },   // top of the chaotic layer
+    { y: 0.79, a: 11, f: 1.9, s: 0.30, p: 2.6 },
+    { y: 0.92, a: 7,  f: 1.2, s: 0.26, p: 5.2 }
+  ];
+
+  // Seeded random, so the picture is the same on every visit.
+  var seed = 20261126;
+  function rnd() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+  var dashes = [];
+  for (var i = 0; i < 90; i++) dashes.push({ u: rnd(), v: 0.08 + rnd() * 0.84, r: (rnd() - 0.5) * 2.4, l: 10 + rnd() * 22, c: (rnd() - 0.5) * 14 });
+  var nodes = [
+    { u: 0.10, v: 0.50, r: 4 }, { u: 0.20, v: 0.28, r: 6 }, { u: 0.29, v: 0.66, r: 4 },
+    { u: 0.40, v: 0.36, r: 5 }, { u: 0.50, v: 0.70, r: 7 }, { u: 0.60, v: 0.30, r: 4 },
+    { u: 0.70, v: 0.58, r: 5 }, { u: 0.80, v: 0.32, r: 6 }, { u: 0.90, v: 0.62, r: 4 }
+  ];
+  nodes.forEach(function (n) { n.ph = rnd() * 6.28; });
+  var edges = [[0,1],[1,2],[1,3],[2,4],[3,4],[3,5],[4,6],[5,6],[5,7],[6,8],[7,8]];
+
+  var W = 0, H = 0;
+  function size() {
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function top(k, x, t) {
+    var L = layers[k], q = x / W * Math.PI * 2;
+    return H * L.y + L.a * Math.sin(q * L.f + t * L.s + L.p) + 0.4 * L.a * Math.sin(q * L.f * 2.35 - t * L.s * 0.7 + L.p);
+  }
+
+  function draw(t) {
+    if (!W || !H) return;
+    ctx.clearRect(0, 0, W, H);
+    for (var k = 0; k < layers.length; k++) {
+      ctx.fillStyle = colors[k];
+      ctx.beginPath();
+      ctx.moveTo(0, top(k, 0, t));
+      for (var x = 8; x <= W + 8; x += 8) ctx.lineTo(x, top(k, x, t));
+      ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+      ctx.fill();
+    }
+    // chaotic texture inside the plum layer
+    ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+    ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+    dashes.forEach(function (d) {
+      var x = d.u * W, a = top(2, x, t), b = top(3, x, t), y = a + (b - a) * d.v;
+      var dx = Math.cos(d.r) * d.l / 2, dy = Math.sin(d.r) * d.l / 2;
+      ctx.beginPath();
+      ctx.moveTo(x - dx, y - dy);
+      ctx.quadraticCurveTo(x, y + d.c, x + dx, y + dy);
+      ctx.stroke();
+    });
+    // knowledge graph
+    var pts = nodes.map(function (n) {
+      var x = (n.u + 0.006 * Math.sin(t * 0.5 + n.ph)) * W;
+      var a = top(2, x, t), b = top(3, x, t);
+      return { x: x, y: a + (b - a) * (n.v + 0.04 * Math.cos(t * 0.4 + n.ph)), r: n.r };
+    });
+    ctx.strokeStyle = 'rgba(255,255,255,0.85)'; ctx.lineWidth = 1.25;
+    edges.forEach(function (e) {
+      ctx.beginPath(); ctx.moveTo(pts[e[0]].x, pts[e[0]].y); ctx.lineTo(pts[e[1]].x, pts[e[1]].y); ctx.stroke();
+    });
+    pts.forEach(function (p, i) {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = i % 3 === 1 ? colors[1] : '#ffffff';
+      ctx.fill();
+    });
+  }
+
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var start = null;
+  function frame(ts) {
+    if (start === null) start = ts;
+    draw((ts - start) / 1000);
+    requestAnimationFrame(frame);
+  }
+  size(); draw(0);
+  if (!still) requestAnimationFrame(frame);
+  window.addEventListener('resize', function () { size(); draw(0); });
+
+  // Copy email
+  var out = document.getElementById('copied');
+  document.getElementById('copy').addEventListener('click', function () {
+    var addr = document.getElementById('mail').textContent;
+    var fail = function () { out.textContent = 'Copy failed. Select the address instead.'; };
+    try { navigator.clipboard.writeText(addr).then(function () { out.textContent = 'Copied'; }, fail); }
+    catch (e) { fail(); }
+  });
+})();
+</script>
+</body>
+</html>
